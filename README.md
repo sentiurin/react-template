@@ -1,10 +1,10 @@
 #### Scripts
 
-`npm run dev:serve` - run webpack development build with dev server (sandbox)
-`npm run dev` - run webpack development build with watching (in-project integration)
-`npm run build` - run webpack production build for deploy
-`npm run remove-redux` - remove redux library and source files from project
-`npm run prettier:fix` - fix all js and jsx files using .prettierrc rules of code style
+- `npm run dev:serve` - run webpack development build with dev server (sandbox)
+- `npm run dev` - run webpack development build with watching (in-project integration)
+- `npm run build` - run webpack production build for deploy
+- `npm run remove-redux` - remove redux library and source files from project
+- `npm run prettier:fix` - fix all js and jsx files using .prettierrc rules of code style
 
 #### Template Structure
 
