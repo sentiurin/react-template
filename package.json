@@ -6,7 +6,8 @@
   "scripts": {
     "prettier:cli": "prettier \"**/*.js\" \"**/*.jsx\"",
     "prettier:fix": "npm run prettier:cli -- --write",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./webpack",
+    "dev:serve": "cross-env NODE_ENV=development webpack-dev-server --config ./webpack",
+    "dev": "cross-env NODE_ENV=development webpack --watch --config ./webpack",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack",
     "remove-redux": "rm -rf ./node_modules && rm -rf ./package-lock.json && rm -rf ./src/redux && npm uninstall redux react-redux redux-thunk redux-devtools-extension redux-immutable-state-invariant && npm install"
   },

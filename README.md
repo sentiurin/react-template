@@ -1,3 +1,11 @@
+#### Scripts
+
+`npm run dev:serve` - run webpack development build with dev server (sandbox)
+`npm run dev` - run webpack development build with watching (in-project integration)
+`npm run build` - run webpack production build for deploy
+`npm run remove-redux` - remove redux library and source files from project
+`npm run prettier:fix` - fix all js and jsx files using .prettierrc rules of code style
+
 #### Template Structure
 
 * **public** - directory for asset files like icons, images, fonts and etc.
@@ -21,6 +29,7 @@ Run npm script: `npm run prettier:fix` for format all files of app using .pretti
 
 #### Documentation links
 
+* [git conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
 * [prettier](https://prettier.io)
 * [redux](https://redux.js.org/introduction/getting-started)
 * [redux-thunk](https://github.com/reduxjs/redux-thunk)
