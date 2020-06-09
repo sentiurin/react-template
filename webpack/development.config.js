@@ -16,6 +16,10 @@ module.exports = function({
     output,
     resolve,
     devtool: 'inline-source-map',
+    // for windows and WSL
+    // watchOptions: {
+    //   poll: true
+    // },
     devServer: {
       contentBase: publicPath,
       compress: true,
