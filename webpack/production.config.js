@@ -1,5 +1,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 
 module.exports = function({
   entry,
@@ -13,7 +15,14 @@ module.exports = function({
     resolve,
     plugins: [
       // minify css plugin
-      new MiniCssExtractPlugin()
+      new MiniCssExtractPlugin(),
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          postcss: [
+            autoprefixer()
+          ],
+        },
+      }),
     ],
     module: {
       rules: [
@@ -37,7 +46,8 @@ module.exports = function({
                 modules: true
               }
             },
-            'sass-loader'
+            'postcss-loader',
+            'sass-loader',
           ]
         },
         // for global sass files
@@ -46,7 +56,8 @@ module.exports = function({
           loader: [
             MiniCssExtractPlugin.loader,
             'css-loader',
-            'sass-loader'
+            'postcss-loader',
+            'sass-loader',
           ],
           exclude: /\.module\.s(a|c)ss$/
         },
@@ -61,7 +72,8 @@ module.exports = function({
                 importLoaders: 1,
                 modules: true
               }
-            }
+            },
+            'postcss-loader',
           ]
         },
         // for global css files
@@ -69,7 +81,8 @@ module.exports = function({
           test: /\.css$/,
           use: [
             MiniCssExtractPlugin.loader,
-            'css-loader'
+            'css-loader',
+            'postcss-loader',
           ],
           exclude: /\.module\.css$/
         }
