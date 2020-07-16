@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PrettierPlugin = require('prettier-webpack-plugin');
 
 module.exports = function({ paths }) {
@@ -10,8 +10,9 @@ module.exports = function({ paths }) {
     mode: 'development',
     entry: './src',
     output: {
-      filename: 'bundle.dev.js',
-      path: path.resolve(__dirname, `../${paths.js}`),
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, `../../${paths.js}`),
+      publicPath: '/'
     },
     resolve: {
       extensions: ['.js', '.jsx', '.css', '.scss', '.json']
@@ -21,9 +22,13 @@ module.exports = function({ paths }) {
     watchOptions: {
       poll: true
     },
+    devServer: {
+      contentBase: path.resolve(__dirname, '../../public'),
+      compress: true,
+      hot: true,
+      port: 3000
+    },
     plugins: [
-      // css extractor
-      new MiniCssExtractPlugin({ filename: `../${paths.css}/bundle.dev.css` }),
       // add browser prefixes into css for dev build
       new webpack.LoaderOptionsPlugin({
         options: {
@@ -31,6 +36,10 @@ module.exports = function({ paths }) {
             autoprefixer()
           ],
         },
+      }),
+      // clone dev html page into build directory
+      new HtmlWebpackPlugin({
+        template: path.resolve(__dirname, '../../public/index.html')
       }),
       // plugin for prettier
       new PrettierPlugin()
@@ -49,7 +58,7 @@ module.exports = function({ paths }) {
         {
           test: /\.module\.s(a|c)ss$/,
           loader: [
-            { loader: MiniCssExtractPlugin.loader },
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
@@ -70,7 +79,7 @@ module.exports = function({ paths }) {
         {
           test: /\.s(a|c)ss$/,
           loader: [
-            { loader: MiniCssExtractPlugin.loader },
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
@@ -90,7 +99,7 @@ module.exports = function({ paths }) {
         {
           test: /\.module\.css$/,
           use: [
-            { loader: MiniCssExtractPlugin.loader },
+            'style-loader',
             {
               loader: 'css-loader',
               options: {
@@ -105,7 +114,7 @@ module.exports = function({ paths }) {
         {
           test: /\.css$/,
           use: [
-            { loader: MiniCssExtractPlugin.loader },
+            'style-loader',
             {
               loader: 'css-loader',
               options: {

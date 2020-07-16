@@ -1,21 +1,26 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
+const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 
-module.exports = function({
-  entry,
-  output,
-  resolve
-}) {
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+
+module.exports = function({ paths }) {
   return {
     mode: 'production',
-    entry,
-    output,
-    resolve,
+    entry: './src',
+    output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, `../${paths.js}`),
+    },
+    resolve: {
+      extensions: ['.js', '.jsx', '.css', '.scss', '.json']
+    },
     plugins: [
       // minify css plugin
-      new MiniCssExtractPlugin(),
+      new MiniCssExtractPlugin({ filename: `../${paths.css}/bundle.css` }),
+      // add browser prefixes into prod build
       new webpack.LoaderOptionsPlugin({
         options: {
           postcss: [
@@ -23,6 +28,8 @@ module.exports = function({
           ],
         },
       }),
+      // compress prod build with .gz
+      new CompressionPlugin(),
     ],
     module: {
       rules: [
@@ -38,7 +45,7 @@ module.exports = function({
         {
           test: /\.module\.s(a|c)ss$/,
           loader: [
-            MiniCssExtractPlugin.loader,
+            { loader: MiniCssExtractPlugin.loader },
             {
               loader: 'css-loader',
               options: {
@@ -54,7 +61,7 @@ module.exports = function({
         {
           test: /\.s(a|c)ss$/,
           loader: [
-            MiniCssExtractPlugin.loader,
+            { loader: MiniCssExtractPlugin.loader },
             'css-loader',
             'postcss-loader',
             'sass-loader',
@@ -65,7 +72,7 @@ module.exports = function({
         {
           test: /\.module\.css$/,
           use: [
-            MiniCssExtractPlugin.loader,
+            { loader: MiniCssExtractPlugin.loader },
             {
               loader: 'css-loader',
               options: {
@@ -80,7 +87,7 @@ module.exports = function({
         {
           test: /\.css$/,
           use: [
-            MiniCssExtractPlugin.loader,
+            { loader: MiniCssExtractPlugin.loader },
             'css-loader',
             'postcss-loader',
           ],

@@ -21,11 +21,23 @@
 
 #### Remove Redux from template
 
-Run npm script: `npm run remove-redux` and then, remove all imports of **redux** directory in app files
+Run npm script: `npm run remove-redux`
 
 #### Fix style of code
 
 Run npm script: `npm run prettier:fix` for format all files of app using .prettierrc rules
+
+#### Configure Webpack
+
+##### !!! Build path starts from project directory
+
+You can configure webpack in `webpack/` directory
+
+Change property `paths` in `webpack/index.js` to configure path for your webpack build
+
+#### Assets
+
+In sandbox mode `npm run dev:serve` better when you store your assets just like in project. Example: store your images in `public/design/images`, to have the same path like in real project
 
 #### Documentation links
 

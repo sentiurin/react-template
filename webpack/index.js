@@ -1,20 +1,20 @@
-const path = require('path');
-
 const env = process.env.NODE_ENV;
-const rootDir = process.cwd();
-const publicPath = path.join(rootDir, 'public');
+const serve = process.env.SERVE;
 
-module.exports = require(`./${env}.config`)({
-  env,
-  rootDir,
-  publicPath,
-  entry: './src',
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(rootDir, 'dist'),
-    publicPath: '/'
-  },
-  resolve: {
-    extensions: ['.js', '.jsx', '.css', '.scss', '.json']
+const configPath = () => {
+  if (serve) {
+    return `./serve/${env}.config`;
   }
+
+  return `./${env}.config`;
+};
+
+// path starts from project directory
+module.exports = require(configPath())({
+  paths: {
+    // like '../../public/js/<YOUR PATH>'
+    js: 'dist',
+    // like '../../../design/css/<YOUR PATH>'
+    css: 'dist',
+  },
 });
