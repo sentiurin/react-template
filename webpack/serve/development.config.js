@@ -5,13 +5,13 @@ const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PrettierPlugin = require('prettier-webpack-plugin');
 
-module.exports = function({ paths }) {
+module.exports = function() {
   return {
     mode: 'development',
     entry: './src',
     output: {
       filename: 'bundle.js',
-      path: path.resolve(__dirname, `../../${paths.js}`),
+      path: path.resolve(__dirname, '../../dist'),
       publicPath: '/'
     },
     resolve: {
@@ -26,7 +26,8 @@ module.exports = function({ paths }) {
       contentBase: path.resolve(__dirname, '../../public'),
       compress: true,
       hot: true,
-      port: 3000
+      port: 3000,
+      historyApiFallback: true
     },
     plugins: [
       // add browser prefixes into css for dev build
